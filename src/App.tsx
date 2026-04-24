@@ -6,6 +6,7 @@ import { IntroPage }   from './pages/IntroPage';
 import { SwipePage }   from './pages/SwipePage';
 import { ResultsPage } from './pages/ResultsPage';
 import { AnimatedBackground } from './components/ui/AnimatedBackground';
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -23,13 +24,15 @@ const AnimatedRoutes = () => {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <SwipeProvider>
-        <AnimatedBackground />
-        <BrowserRouter>
-          <AnimatedRoutes />
-        </BrowserRouter>
-      </SwipeProvider>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <SwipeProvider>
+          <AnimatedBackground />
+          <BrowserRouter>
+            <AnimatedRoutes />
+          </BrowserRouter>
+        </SwipeProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
