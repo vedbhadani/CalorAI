@@ -1,0 +1,27 @@
+.card {
+  position: absolute;
+  width: min(340px, 90vw);
+  height: min(440px, 65vh);
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  cursor: grab;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+.content { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.emoji { font-size: 80px; line-height: 1; }
+.label { color: var(--text-primary); font-size: 20px; font-weight: 700; text-align: center; padding: 0 24px; }
+
+/* Badges */
+.badge { position: absolute; padding: 8px 20px; border-radius: 100px; pointer-events: none; }
+.badgeText { font-weight: 700; font-size: 16px; color: #000; }
+.badgeTopRight   { top: 20px; right: 20px; }
+.badgeTopLeft    { top: 20px; left: 20px; }
+.badgeTopCenter  { top: 20px; left: 50%; transform: translateX(-50%); }
+.badgeBottomCenter { bottom: 20px; left: 50%; transform: translateX(-50%); }
