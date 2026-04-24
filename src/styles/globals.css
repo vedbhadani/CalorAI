@@ -13,16 +13,6 @@ body {
   overflow: hidden;
 }
 
-/* Ambient glow via pseudo-element — matches Figma */
-.page-bg::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: var(--bg-glow);
-  pointer-events: none;
-  z-index: 0;
-}
-
 .page-bg > * { position: relative; z-index: 1; }
 
 /* Mobile-first container */
@@ -31,6 +21,14 @@ body {
   margin: 0 auto;
   padding: 0 20px;
   min-height: 100dvh;
+}
+
+.custom-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Scrollbar */

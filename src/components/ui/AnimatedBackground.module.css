@@ -1,0 +1,51 @@
+.container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blobWrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  mix-blend-mode: screen; /* Helps colors blend nicely in dark mode */
+}
+
+/* Medium Blue Blob */
+.medium {
+  width: 20vw;
+  height: 20vw;
+  min-width: 200px;
+  min-height: 200px;
+  background-color: #2f5a9e;
+  top: 0;
+  left: 0;
+}
+
+/* Large Green Blob */
+.large {
+  width: 30vw;
+  height: 30vw;
+  min-width: 300px;
+  min-height: 300px;
+  background-color: #3e702d;
+  top: 0;
+  left: 0;
+}
+
+/* On light mode, we might want multiply instead of screen for blending, 
+   but since the user didn't specify, we'll keep it simple. */
+[data-theme="light"] .blob {
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+}

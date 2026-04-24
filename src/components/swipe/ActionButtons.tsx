@@ -2,25 +2,30 @@ import { motion } from 'framer-motion';
 import type { SwipeDirection } from '../../types';
 import styles from './ActionButtons.module.css';
 
+// Import icons from assets
+import swipeleftIcon from '../../assets/swipeleft.svg';
+import swiperightIcon from '../../assets/swiperight.svg';
+import notsureIcon from '../../assets/notsure.svg';
+import superlikeIcon from '../../assets/superlike.svg';
+
 const BUTTONS = [
-  { dir: 'dislike'   as SwipeDirection, icon: '✕', label: 'Swipe Left',  color: 'var(--btn-dislike)'   },
-  { dir: 'unsure'    as SwipeDirection, icon: '?', label: 'Not Sure',    color: 'var(--btn-unsure)'    },
-  { dir: 'superlike' as SwipeDirection, icon: '★', label: 'Super Like',  color: 'var(--btn-superlike)' },
-  { dir: 'like'      as SwipeDirection, icon: '♥', label: 'Swipe Right', color: 'var(--btn-like)'      },
+  { dir: 'dislike'   as SwipeDirection, icon: swipeleftIcon,  label: 'Swipe Left',  isLarge: true },
+  { dir: 'unsure'    as SwipeDirection, icon: notsureIcon,    label: 'Not Sure',    isLarge: false },
+  { dir: 'superlike' as SwipeDirection, icon: superlikeIcon,  label: 'Super Like',  isLarge: false },
+  { dir: 'like'      as SwipeDirection, icon: swiperightIcon, label: 'Swipe Right', isLarge: true },
 ];
 
 export const ActionButtons = ({ onAction }: { onAction: (dir: SwipeDirection) => void }) => (
   <div className={styles.row}>
-    {BUTTONS.map(({ dir, icon, label, color }) => (
+    {BUTTONS.map(({ dir, icon, label, isLarge }) => (
       <div key={dir} className={styles.btnWrapper}>
         <motion.button
-          className={styles.btn}
-          style={{ background: color }}
+          className={`${styles.btn} ${isLarge ? styles.btnLarge : styles.btnSmall} ${styles[dir]}`}
           onClick={() => onAction(dir)}
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.08 }}
         >
-          <span className={styles.icon}>{icon}</span>
+          <img src={icon} alt={label} className={styles.iconImg} />
         </motion.button>
         <span className={styles.label}>{label}</span>
       </div>

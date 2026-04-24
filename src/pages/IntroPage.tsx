@@ -10,7 +10,6 @@ export const IntroPage = () => {
       <div className="app-container">
         <div className={styles.header}>
           <h1 className={styles.title}>Design Your Food Plan</h1>
-          <ThemeToggle />
         </div>
         <motion.div
           className={styles.card}

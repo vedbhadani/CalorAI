@@ -5,11 +5,13 @@ import { SwipeProvider } from './context/SwipeContext';
 import { IntroPage }   from './pages/IntroPage';
 import { SwipePage }   from './pages/SwipePage';
 import { ResultsPage } from './pages/ResultsPage';
+import { AnimatedBackground } from './components/ui/AnimatedBackground';
 
 export default function App() {
   return (
     <ThemeProvider>
       <SwipeProvider>
+        <AnimatedBackground />
         <BrowserRouter>
           <AnimatePresence mode="wait">
             <Routes>
