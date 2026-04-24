@@ -1,17 +1,27 @@
 .page {
   display: flex;
   flex-direction: column;
+  min-height: 100dvh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  padding: 4vh 20px 8vh;
 }
 
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 0 40px;
+  padding: 0 0 4vh;
 }
 
 .title {
-  font-size: 36px;
+  font-size: clamp(28px, 5vh, 36px);
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1.2;
@@ -19,16 +29,18 @@
 }
 
 .card {
-  /* Reverted sizes */
   border-radius: var(--radius-card);
-  padding: 40px 28px;
+  padding: 5dvh 6vw;
+  width: 96%;
+  max-width: 400px;
+  min-height: 45dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   box-shadow: var(--shadow-card);
   
-  /* Kept shiny border effect */
   border: 1px solid transparent;
   background: 
     linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
@@ -37,32 +49,32 @@
 }
 
 .heroEmoji {
-  font-size: 72px;
+  font-size: clamp(60px, 9vh, 80px);
   line-height: 1;
-  margin-bottom: 24px;
+  margin-bottom: 2vh;
 }
 
 .cardTitle {
-  font-size: 24px;
+  font-size: clamp(20px, 3vh, 28px);
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 24px;
+  margin-bottom: 2vh;
 }
 
 .cardDesc {
-  font-size: 18px;
+  font-size: clamp(15px, 2vh, 18px);
   color: var(--text-secondary);
   line-height: 1.5;
   max-width: 320px;
-  margin-bottom: 32px;
+  margin-bottom: 2.5vh;
 }
 
 .cardSubDesc {
-  font-size: 15px;
+  font-size: clamp(13px, 1.8vh, 16px);
   color: var(--text-secondary);
   line-height: 1.5;
   max-width: 320px;
-  margin-bottom: 40px;
+  margin-bottom: 4vh;
 }
 
 .ctaBtn {

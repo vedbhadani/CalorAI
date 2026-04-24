@@ -1,13 +1,15 @@
 .page {
   display: flex;
   flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 .topBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 60px 0 16px;
+  padding: 40px 0 16px;
 }
 
 .undoBtn {
@@ -39,9 +41,10 @@
 .cardArea {
   position: relative;
   width: 100%;
-  height: min(460px, 65vh);
+  height: 60dvh;
+  max-height: 550px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 2dvh;
 }

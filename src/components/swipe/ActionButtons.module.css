@@ -86,7 +86,7 @@
   font-size: 11.61px;
   line-height: 13.93px;
   font-weight: 510;
-  color: #404040;
+  color: var(--text-secondary);
   text-align: center;
   mix-blend-mode: plus-lighter;
 }
