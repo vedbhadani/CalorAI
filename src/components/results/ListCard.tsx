@@ -11,8 +11,6 @@ interface ListCardProps {
 }
 
 export const ListCard = ({ emoji, title, subtitle, items, iconColor, iconType = 'check', style }: ListCardProps) => {
-  const checkColor = iconColor === 'blue' ? 'var(--accent-blue)' : 'var(--accent-green)';
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

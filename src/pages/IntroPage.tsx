@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ThemeToggle } from '../components/ui/ThemeToggle';
 import styles from './IntroPage.module.css';
 
 export const IntroPage = () => {
