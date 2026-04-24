@@ -21,7 +21,7 @@ export const ListCard = ({ emoji, title, subtitle, items, iconType = 'check', st
           'var(--glass-border) border-box',
         backdropFilter: 'blur(24px) saturate(180%)',
         borderRadius: 'var(--radius-card)',
-        padding: '24px 20px',
+        padding: '45px 20px',
         width: '100%',
         boxShadow: 'var(--shadow-card)',
         display: 'flex',

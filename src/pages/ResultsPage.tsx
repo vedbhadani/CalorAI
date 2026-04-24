@@ -57,7 +57,7 @@ export const ResultsPage = () => {
                 subtitle="We'll Recommend These"
                 items={allLiked.map(f => f.name)}
                 iconType="heart"
-                style={{ height: 450 }}
+                style={{ height: 500, maxWidth: 402 }}
               />
             </div>
 
@@ -68,7 +68,7 @@ export const ResultsPage = () => {
                 subtitle="These will never be on the menu"
                 items={disliked.map(f => f.name)}
                 iconType="check"
-                style={{ height: 450 }}
+                style={{ height: 500, maxWidth: 402 }}
               />
             </div>
 
@@ -79,7 +79,7 @@ export const ResultsPage = () => {
                 subtitle="Flavors you love, all in one place"
                 items={cuisines.map(c => c.name)}
                 iconType="check"
-                style={{ height: 450 }}
+                style={{ height: 500, maxWidth: 402 }}
               />
             </div>
           </div>
