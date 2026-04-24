@@ -1,27 +1,109 @@
 .card {
   position: absolute;
+  /* Reverted sizes */
   width: min(340px, 90vw);
   height: min(440px, 65vh);
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
+  
   cursor: grab;
   user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
   touch-action: none;
+
+  /* Kept shiny border effect */
+  border: 1px solid transparent;
+  background: 
+    linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+    var(--glass-border) border-box;
+  backdrop-filter: blur(24px) saturate(180%);
 }
 
-.content { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-.emoji { font-size: 80px; line-height: 1; }
-.label { color: var(--text-primary); font-size: 20px; font-weight: 700; text-align: center; padding: 0 24px; }
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.emoji {
+  font-size: 80px;
+  line-height: 1;
+}
+
+.label {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro", Helvetica, Arial, sans-serif;
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.56px;
+  text-align: center;
+  padding: 0 24px;
+}
 
 /* Badges */
-.badge { position: absolute; padding: 8px 20px; border-radius: 100px; pointer-events: none; }
-.badgeText { font-weight: 700; font-size: 16px; color: #000; }
-.badgeTopRight   { top: 20px; right: 20px; }
-.badgeTopLeft    { top: 20px; left: 20px; }
-.badgeTopCenter  { top: 20px; left: 50%; transform: translateX(-50%); }
-.badgeBottomCenter { bottom: 20px; left: 50%; transform: translateX(-50%); }
+.badge {
+  position: absolute;
+  padding: 8px 20px;
+  border-radius: 100px;
+  pointer-events: none;
+}
+
+.badgeText {
+  font-weight: 700;
+  font-size: 16px;
+  color: #000;
+}
+
+.badgeTopRight {
+  top: 76px;
+  right: 20px;
+  width: 90.86px;
+  height: 60.14px;
+  padding: 8.57px 21.43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1000px;
+}
+
+.badgeTopLeft {
+  top: 67px;
+  left: 20px;
+  width: 82.86px;
+  height: 60.14px;
+  padding: 8.57px 21.43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1000px;
+}
+
+.badgeTopCenter {
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 201.86px;
+  height: 60.14px;
+  padding: 8.57px 21.43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1000px;
+}
+
+.badgeBottomCenter {
+  bottom: 20px; /* Adjusting relative to card height to match 'top: 425px' intent */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 137.86px;
+  height: 60.14px;
+  padding: 8.57px 21.43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1000px;
+}

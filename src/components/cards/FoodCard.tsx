@@ -66,17 +66,17 @@ export const FoodCard = ({ food, onSwipe, isTop, stackIndex }: Props) => {
       whileTap={isTop ? { cursor: 'grabbing' } : undefined}
     >
       {/* Direction badges — opacity tied to drag */}
-      <motion.div className={`${styles.badge} ${styles.badgeTopRight}`} style={{ opacity: likeOpacity, background: '#4ADE80' }}>
+      <motion.div className={`${styles.badge} ${styles.badgeTopRight}`} style={{ opacity: likeOpacity, background: '#4BD883', rotate: '16deg' }}>
         <span className={styles.badgeText}>Yes</span>
       </motion.div>
-      <motion.div className={`${styles.badge} ${styles.badgeTopLeft}`} style={{ opacity: noOpacity, background: '#EF4444' }}>
+      <motion.div className={`${styles.badge} ${styles.badgeTopLeft}`} style={{ opacity: noOpacity, background: '#F95341', rotate: '-16deg' }}>
         <span className={styles.badgeText}>No</span>
       </motion.div>
-      <motion.div className={`${styles.badge} ${styles.badgeTopCenter}`} style={{ opacity: upOpacity, background: 'linear-gradient(135deg, #6366F1, #818CF8)' }}>
-        <span className={styles.badgeText} style={{ color: '#fff' }}>Superlike ✨</span>
+      <motion.div className={`${styles.badge} ${styles.badgeTopCenter}`} style={{ opacity: upOpacity, background: 'linear-gradient(180deg, #7843FF 0%, #4CC6FF 100%)' }}>
+        <span className={styles.badgeText} style={{ color: '#000' }}>Superlike 🌟</span>
       </motion.div>
-      <motion.div className={`${styles.badge} ${styles.badgeBottomCenter}`} style={{ opacity: downOpacity, background: '#4B5563' }}>
-        <span className={styles.badgeText} style={{ color: '#fff' }}>Unsure</span>
+      <motion.div className={`${styles.badge} ${styles.badgeBottomCenter}`} style={{ opacity: downOpacity, background: '#BFBFBF' }}>
+        <span className={styles.badgeText} style={{ color: '#000' }}>Unsure</span>
       </motion.div>
 
       {/* Card content */}
