@@ -79,7 +79,7 @@ export const ResultsPage = () => {
                 subtitle="Flavors you love, all in one place"
                 items={cuisines.map(c => c.name)}
                 iconType="check"
-                style={{ height: 500, maxWidth: 402 }}
+                style={{ height: '55dvh', maxHeight: 500, maxWidth: 402 }}
               />
             </div>
           </div>
