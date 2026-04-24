@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 
 interface ListCardProps {
@@ -9,7 +10,7 @@ interface ListCardProps {
   style?: React.CSSProperties;
 }
 
-export const ListCard = ({ emoji, title, subtitle, items, iconType = 'check', style }: ListCardProps) => {
+export const ListCard = memo(({ emoji, title, subtitle, items, iconType = 'check', style }: ListCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -82,4 +83,6 @@ export const ListCard = ({ emoji, title, subtitle, items, iconType = 'check', st
       </div>
     </motion.div>
   );
-};
+});
+
+ListCard.displayName = 'ListCard';

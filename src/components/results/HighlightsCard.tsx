@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 
 interface Highlight {
@@ -5,7 +6,7 @@ interface Highlight {
   label: string;
 }
 
-export const HighlightsCard = ({ highlights }: { highlights: Highlight[] }) => {
+export const HighlightsCard = memo(({ highlights }: { highlights: Highlight[] }) => {
   if (highlights.length === 0) return null;
 
   return (
@@ -81,4 +82,6 @@ export const HighlightsCard = ({ highlights }: { highlights: Highlight[] }) => {
       </div>
     </motion.div>
   );
-};
+});
+
+HighlightsCard.displayName = 'HighlightsCard';

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import type { SwipeDirection } from '../../types';
 import styles from './ActionButtons.module.css';
@@ -15,8 +16,8 @@ const BUTTONS = [
   { dir: 'like'      as SwipeDirection, icon: swiperightIcon, label: 'Swipe Right', isLarge: true },
 ];
 
-export const ActionButtons = ({ onAction }: { onAction: (dir: SwipeDirection) => void }) => (
-  <div className={styles.row}>
+export const ActionButtons = memo(({ onAction }: { onAction: (dir: SwipeDirection) => void }) => (
+  <div className={styles.row} role="toolbar" aria-label="Swipe actions">
     {BUTTONS.map(({ dir, icon, label, isLarge }) => (
       <div key={dir} className={styles.btnWrapper}>
         <motion.button
@@ -24,6 +25,7 @@ export const ActionButtons = ({ onAction }: { onAction: (dir: SwipeDirection) =>
           onClick={() => onAction(dir)}
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.08 }}
+          aria-label={label}
         >
           <img src={icon} alt={label} className={styles.iconImg} />
         </motion.button>
@@ -31,4 +33,6 @@ export const ActionButtons = ({ onAction }: { onAction: (dir: SwipeDirection) =>
       </div>
     ))}
   </div>
-);
+));
+
+ActionButtons.displayName = 'ActionButtons';

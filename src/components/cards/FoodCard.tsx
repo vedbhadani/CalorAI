@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { motion, useMotionValue, useTransform, useAnimation, type PanInfo } from 'framer-motion';
 import type { Food, SwipeDirection } from '../../types';
 import { foodEmojiMap, getCardText } from '../../assets/foodEmojis';
@@ -22,7 +23,7 @@ export const FoodCard = ({ food, onSwipe, isTop, stackIndex }: Props) => {
   const upOpacity    = useTransform(y, [-80, 0], [1, 0]);
   const downOpacity  = useTransform(y, [0, 80], [0, 1]);
 
-  const triggerSwipe = async (dir: SwipeDirection) => {
+  const triggerSwipe = useCallback(async (dir: SwipeDirection) => {
     const targets: Record<SwipeDirection, { x: number; y: number }> = {
       like:      { x: 500, y: 0 },
       dislike:   { x: -500, y: 0 },
@@ -31,9 +32,9 @@ export const FoodCard = ({ food, onSwipe, isTop, stackIndex }: Props) => {
     };
     await controls.start({ ...targets[dir], opacity: 0, transition: { duration: 0.3 } });
     onSwipe(dir);
-  };
+  }, [controls, onSwipe]);
 
-  const handleDragEnd = (_: unknown, info: PanInfo) => {
+  const handleDragEnd = useCallback((_: unknown, info: PanInfo) => {
     const { offset: { x: ox, y: oy }, velocity: { x: vx, y: vy } } = info;
     const THRESHOLD = 120;
     const VELOCITY = 500;
@@ -47,7 +48,7 @@ export const FoodCard = ({ food, onSwipe, isTop, stackIndex }: Props) => {
       else if (oy > THRESHOLD || vy > VELOCITY) triggerSwipe('unsure');
       else controls.start({ x: 0, y: 0, rotate: 0, transition: { type: 'spring', stiffness: 300 } });
     }
-  };
+  }, [triggerSwipe, controls]);
 
   // Stack visual offset for cards behind the top
   const stackStyle = stackIndex === 0
@@ -64,6 +65,9 @@ export const FoodCard = ({ food, onSwipe, isTop, stackIndex }: Props) => {
       dragElastic={0.9}
       onDragEnd={handleDragEnd}
       whileTap={isTop ? { cursor: 'grabbing' } : undefined}
+      role="group"
+      aria-label={`Food card: ${food.name}`}
+      aria-roledescription="swipeable card"
     >
       {/* Direction badges — opacity tied to drag */}
       <motion.div className={`${styles.badge} ${styles.badgeTopRight}`} style={{ opacity: likeOpacity, background: '#4BD883', rotate: '16deg' }}>
