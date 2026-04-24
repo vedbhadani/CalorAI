@@ -1,18 +1,16 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import type { Theme } from '../types';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 interface ThemeContextType { theme: Theme; toggleTheme: () => void; }
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem('calorai-theme') as Theme) ?? 'dark'
-  );
+  const [theme, setTheme] = useLocalStorage<Theme>('calorai-theme', 'dark');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('calorai-theme', theme);
   }, [theme]);
 
   return (

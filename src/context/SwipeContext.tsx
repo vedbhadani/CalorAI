@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useMemo, useCallback } from 'react';
 import type { Food, SwipeRecord, SwipeDirection } from '../types';
-import foodsData from '../assets/foods.json';
+import { useSwipeStore } from '../store/useSwipeStore';
 
 interface SwipeContextType {
   foods: Food[];
@@ -18,58 +18,57 @@ interface SwipeContextType {
 
 const SwipeContext = createContext<SwipeContextType | null>(null);
 
-const STORAGE_KEY = 'calorai_swipe_state';
-
+/**
+ * SwipeProvider wraps the Zustand store with React Context so consumers
+ * can access swipe state via either useSwipeContext() (Context API) or
+ * useSwipeStore() (Zustand) — satisfying both requirements from the spec.
+ */
 export const SwipeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [foods] = useState<Food[]>(foodsData.foods as Food[]);
-  
-  // Initialize from localStorage
-  const [currentIndex, setCurrentIndex] = useState(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_index`);
-    return saved ? parseInt(saved, 10) : 0;
-  });
-  
-  const [swipeHistory, setSwipeHistory] = useState<SwipeRecord[]>(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_history`);
-    return saved ? JSON.parse(saved) : [];
-  });
+  const foods = useSwipeStore((s) => s.foods);
+  const currentIndex = useSwipeStore((s) => s.currentIndex);
+  const swipeHistory = useSwipeStore((s) => s.swipeHistory);
+  const storeRecordSwipe = useSwipeStore((s) => s.recordSwipe);
+  const storeUndoSwipe = useSwipeStore((s) => s.undoSwipe);
+  const storeReset = useSwipeStore((s) => s.reset);
 
-  // Persist to localStorage
-  useEffect(() => {
-    localStorage.setItem(`${STORAGE_KEY}_index`, currentIndex.toString());
-    localStorage.setItem(`${STORAGE_KEY}_history`, JSON.stringify(swipeHistory));
-  }, [currentIndex, swipeHistory]);
-
-  const liked    = swipeHistory.filter(r => r.direction === 'like').map(r => r.food);
-  const disliked = swipeHistory.filter(r => r.direction === 'dislike').map(r => r.food);
-  const superlikes = swipeHistory.filter(r => r.direction === 'superlike').map(r => r.food);
-  const unsure   = swipeHistory.filter(r => r.direction === 'unsure').map(r => r.food);
+  // Memoize derived arrays to avoid re-filtering on every render
+  const liked = useMemo(
+    () => swipeHistory.filter((r) => r.direction === 'like').map((r) => r.food),
+    [swipeHistory]
+  );
+  const disliked = useMemo(
+    () => swipeHistory.filter((r) => r.direction === 'dislike').map((r) => r.food),
+    [swipeHistory]
+  );
+  const superlikes = useMemo(
+    () => swipeHistory.filter((r) => r.direction === 'superlike').map((r) => r.food),
+    [swipeHistory]
+  );
+  const unsure = useMemo(
+    () => swipeHistory.filter((r) => r.direction === 'unsure').map((r) => r.food),
+    [swipeHistory]
+  );
   const isComplete = currentIndex >= foods.length;
 
-  const recordSwipe = (food: Food, direction: SwipeDirection) => {
-    setSwipeHistory(h => [...h, { food, direction, timestamp: Date.now() }]);
-    setCurrentIndex(i => i + 1);
-  };
+  // Stable callback references
+  const recordSwipe = useCallback(
+    (food: Food, direction: SwipeDirection) => storeRecordSwipe(food, direction),
+    [storeRecordSwipe]
+  );
+  const undoSwipe = useCallback(() => storeUndoSwipe(), [storeUndoSwipe]);
+  const reset = useCallback(() => storeReset(), [storeReset]);
 
-  const undoSwipe = () => {
-    if (swipeHistory.length === 0) return;
-    setSwipeHistory(h => h.slice(0, -1));
-    setCurrentIndex(i => Math.max(0, i - 1));
-  };
-
-  const reset = () => { 
-    setSwipeHistory([]); 
-    setCurrentIndex(0); 
-    localStorage.removeItem(`${STORAGE_KEY}_index`);
-    localStorage.removeItem(`${STORAGE_KEY}_history`);
-  };
-
-  return (
-    <SwipeContext.Provider value={{
+  const value = useMemo(
+    () => ({
       foods, currentIndex, swipeHistory,
       liked, disliked, superlikes, unsure, isComplete,
-      recordSwipe, undoSwipe, reset
-    }}>
+      recordSwipe, undoSwipe, reset,
+    }),
+    [foods, currentIndex, swipeHistory, liked, disliked, superlikes, unsure, isComplete, recordSwipe, undoSwipe, reset]
+  );
+
+  return (
+    <SwipeContext.Provider value={value}>
       {children}
     </SwipeContext.Provider>
   );
