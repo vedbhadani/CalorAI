@@ -1,0 +1,39 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.page-bg {
+  min-height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient glow via pseudo-element — matches Figma */
+.page-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--bg-glow);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-bg > * { position: relative; z-index: 1; }
+
+/* Mobile-first container */
+.app-container {
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: 100dvh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-card); border-radius: 100px; }
