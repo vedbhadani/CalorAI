@@ -9,37 +9,76 @@ export const HighlightsCard = ({ highlights }: { highlights: Highlight[] }) => {
   if (highlights.length === 0) return null;
 
   return (
-    <div style={{
-      display: 'flex',
-      gap: 12,
-      overflowX: 'auto',
-      paddingBottom: 8,
-      marginBottom: 20,
-      scrollbarWidth: 'none',
-    }}>
-      {highlights.map((h, i) => (
-        <motion.div
-          key={h.label}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: i * 0.1 }}
-          style={{
-            minWidth: 120,
-            padding: '20px 16px',
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border-card)',
-            borderRadius: 'var(--radius-card)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 8,
-            flexShrink: 0,
-          }}
-        >
-          <span style={{ fontSize: 32 }}>{h.emoji}</span>
-          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', textAlign: 'center' }}>{h.label}</span>
-        </motion.div>
-      ))}
-    </div>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '10px 16px', // Exact padding from spec
+        marginBottom: 24,
+        width: '100%', // Responsive width
+        maxWidth: 408, // Max width from spec
+        borderRadius: 'var(--radius-card)',
+        border: '1px solid transparent',
+        background: 
+          'linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box, ' +
+          'var(--glass-border) border-box',
+        backdropFilter: 'blur(24px) saturate(180%)',
+        boxShadow: 'var(--shadow-card)',
+      }}
+    >
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        width: '100%',
+        gap: 10,
+      }}>
+        {highlights.map((h, i) => (
+          <div key={h.label} style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 8,
+              flex: 1,
+            }}>
+              <span style={{ 
+                fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro", sans-serif',
+                fontSize: 49.91,
+                lineHeight: '64.59px',
+                letterSpacing: '-1.26px'
+              }}>{h.emoji}</span>
+              <span style={{ 
+                fontSize: 14, 
+                fontWeight: 700, 
+                color: 'var(--text-primary)', 
+                textAlign: 'center',
+                lineHeight: 1.2
+              }}>{h.label}</span>
+            </div>
+            {/* Vertical Divider with exact specs */}
+            {i < highlights.length - 1 && (
+              <div style={{ 
+                width: 1, 
+                height: 21, 
+                background: 'rgba(255, 255, 255, 0.5)',
+                opacity: 1,
+                margin: '0 8px',
+                transform: 'rotate(0deg)' // User said angle 90, but we want it vertical
+              }} />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Subtle Pagination Dots */}
+      <div style={{ display: 'flex', gap: 6, marginTop: 16 }}>
+        <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--text-primary)', opacity: 1 }} />
+        <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--text-primary)', opacity: 0.3 }} />
+      </div>
+    </motion.div>
   );
 };
