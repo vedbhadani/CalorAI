@@ -25,7 +25,19 @@ export const deriveHighlights = (liked: Food[]) => {
 
 export const getRecommendedCuisines = (liked: Food[], cuisines: Cuisine[]) => {
   const likedTags = new Set(liked.flatMap(f => f.tags));
+  
+  const cuisineTags: Record<string, string[]> = {
+    'Italian': ['italian', 'pasta', 'pizza'],
+    'Mexican': ['mexican', 'tacos'],
+    'Japanese': ['japanese', 'sushi', 'ramen', 'fish'],
+    'Mediterranean': ['healthy', 'salad', 'fish', 'vegetable'],
+    'American': ['comfort', 'burger', 'steak', 'red-meat', 'protein']
+  };
+
   return cuisines
-    .filter(c => likedTags.has(c.name.toLowerCase()))
+    .filter(c => {
+      const matchTags = cuisineTags[c.name] || [c.name.toLowerCase()];
+      return matchTags.some(tag => likedTags.has(tag));
+    })
     .slice(0, 4);
 };
