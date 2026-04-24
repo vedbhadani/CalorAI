@@ -56,7 +56,6 @@ export const ResultsPage = () => {
                 title="Foods You Love"
                 subtitle="We'll Recommend These"
                 items={allLiked.map(f => f.name)}
-                iconColor="blue"
                 iconType="heart"
                 style={{ height: 450 }}
               />
@@ -68,7 +67,6 @@ export const ResultsPage = () => {
                 title="Foods You Hate"
                 subtitle="These will never be on the menu"
                 items={disliked.map(f => f.name)}
-                iconColor="blue"
                 iconType="check"
                 style={{ height: 450 }}
               />
@@ -80,7 +78,6 @@ export const ResultsPage = () => {
                 title="Your Favorite Cuisines"
                 subtitle="Flavors you love, all in one place"
                 items={cuisines.map(c => c.name)}
-                iconColor="blue"
                 iconType="check"
                 style={{ height: 450 }}
               />

@@ -5,12 +5,11 @@ interface ListCardProps {
   title: string;
   subtitle: string;
   items: string[];
-  iconColor: 'blue' | 'green';
   iconType?: 'heart' | 'check';
   style?: React.CSSProperties;
 }
 
-export const ListCard = ({ emoji, title, subtitle, items, iconColor, iconType = 'check', style }: ListCardProps) => {
+export const ListCard = ({ emoji, title, subtitle, items, iconType = 'check', style }: ListCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
