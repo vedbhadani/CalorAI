@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, forwardRef, useImperativeHandle } from 'react';
 import { motion, useMotionValue, useTransform, useAnimation, type PanInfo } from 'framer-motion';
 import type { Food, SwipeDirection } from '../../types';
 import { foodEmojiMap, getCardText } from '../../assets/foodEmojis';
@@ -11,7 +11,11 @@ interface Props {
   stackIndex: number;
 }
 
-export const FoodCard = ({ food, onSwipe, isTop, stackIndex }: Props) => {
+export interface FoodCardHandle {
+  triggerSwipe: (dir: SwipeDirection) => void;
+}
+
+export const FoodCard = forwardRef<FoodCardHandle, Props>(({ food, onSwipe, isTop, stackIndex }, ref) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const controls = useAnimation();
@@ -33,6 +37,8 @@ export const FoodCard = ({ food, onSwipe, isTop, stackIndex }: Props) => {
     await controls.start({ ...targets[dir], opacity: 0, transition: { duration: 0.3 } });
     onSwipe(dir);
   }, [controls, onSwipe]);
+
+  useImperativeHandle(ref, () => ({ triggerSwipe }), [triggerSwipe]);
 
   const handleDragEnd = useCallback((_: unknown, info: PanInfo) => {
     const { offset: { x: ox, y: oy }, velocity: { x: vx, y: vy } } = info;
@@ -90,4 +96,4 @@ export const FoodCard = ({ food, onSwipe, isTop, stackIndex }: Props) => {
       </div>
     </motion.div>
   );
-};
+});

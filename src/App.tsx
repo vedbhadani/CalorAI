@@ -7,6 +7,7 @@ import { SwipePage }   from './pages/SwipePage';
 import { ResultsPage } from './pages/ResultsPage';
 import { AnimatedBackground } from './components/ui/AnimatedBackground';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
+import { ProtectedRoute } from './components/ui/ProtectedRoute';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -14,8 +15,16 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/"        element={<IntroPage />} />
-        <Route path="/swipe"   element={<SwipePage />} />
-        <Route path="/results" element={<ResultsPage />} />
+        <Route path="/swipe"   element={
+          <ProtectedRoute redirectIfComplete>
+            <SwipePage />
+          </ProtectedRoute>
+        } />
+        <Route path="/results" element={
+          <ProtectedRoute requiresSwipeData>
+            <ResultsPage />
+          </ProtectedRoute>
+        } />
         <Route path="*"        element={<Navigate to="/" />} />
       </Routes>
     </AnimatePresence>
@@ -25,14 +34,14 @@ const AnimatedRoutes = () => {
 export default function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider>
-        <SwipeProvider>
-          <AnimatedBackground />
-          <BrowserRouter>
+      <BrowserRouter>
+        <ThemeProvider>
+          <SwipeProvider>
+            <AnimatedBackground />
             <AnimatedRoutes />
-          </BrowserRouter>
-        </SwipeProvider>
-      </ThemeProvider>
+          </SwipeProvider>
+        </ThemeProvider>
+      </BrowserRouter>
     </ErrorBoundary>
   );
 }
