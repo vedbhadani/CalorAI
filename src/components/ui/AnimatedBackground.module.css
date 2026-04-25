@@ -46,6 +46,14 @@
 /* On light mode, we might want multiply instead of screen for blending, 
    but since the user didn't specify, we'll keep it simple. */
 [data-theme="light"] .blob {
-  opacity: 0.4;
-  mix-blend-mode: multiply;
+  opacity: 0.25;
+  mix-blend-mode: normal;
+}
+
+[data-theme="light"] .large {
+  background-color: #a8d5b5;   /* soft sage green */
+}
+
+[data-theme="light"] .medium {
+  background-color: #a8c4e0;   /* soft sky blue */
 }

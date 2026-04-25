@@ -65,7 +65,7 @@ export const HighlightsCard = memo(({ highlights }: { highlights: Highlight[] })
               <div style={{ 
                 width: 1, 
                 height: 21, 
-                background: 'rgba(255, 255, 255, 0.5)',
+                background: 'var(--border-divider)',
                 opacity: 1,
                 margin: '0 8px',
                 transform: 'rotate(0deg)' // User said angle 90, but we want it vertical
@@ -75,7 +75,6 @@ export const HighlightsCard = memo(({ highlights }: { highlights: Highlight[] })
         ))}
       </div>
 
-      {/* Subtle Pagination Dots */}
       <div style={{ display: 'flex', gap: 6, marginTop: 16 }}>
         <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--text-primary)', opacity: 1 }} />
         <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--text-primary)', opacity: 0.3 }} />

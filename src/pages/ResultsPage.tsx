@@ -20,9 +20,9 @@ export const ResultsPage = () => {
   const cuisines = getRecommendedCuisines(allLiked, foodsData.cuisines);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const scrollLeft = e.currentTarget.scrollLeft;
-    const width = e.currentTarget.offsetWidth - 40;
-    const index = Math.round(scrollLeft / width);
+    const { scrollLeft, offsetWidth } = e.currentTarget;
+    if (offsetWidth === 0) return;
+    const index = Math.round(scrollLeft / offsetWidth);
     if (index !== activeSlide) setActiveSlide(index);
   };
 
@@ -100,6 +100,7 @@ export const ResultsPage = () => {
             className={styles.btnPrimary}
             onClick={() => { reset(); navigate('/swipe'); }}
           >
+            {/* "Quizz" with double-z is intentional — matches Figma spec */}
             Retake Quizz
           </button>
           <button className={styles.btnOutline} onClick={handleShare}>
