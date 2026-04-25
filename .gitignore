@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build and Tooling
+.agent/
+graphify-out/
+.npmrc
+*.patch
+*.mjs
+!scripts/*.mjs
