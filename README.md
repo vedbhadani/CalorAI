@@ -7,11 +7,9 @@
 
 ## Screenshots
 
-### Dark Mode
-![Dark Mode](./screenshots/dark-mode.png)
-
-### Light Mode
-![Light Mode](./screenshots/light-mode.png)
+| Dark Mode | Light Mode |
+| :---: | :---: |
+| <img src="./screenshots/dark-mode.png" width="300" /> | <img src="./screenshots/light-mode.png" width="300" /> |
 
 ---
 
