@@ -4,8 +4,9 @@ import { useState, useRef } from 'react';
 import { useSwipeContext } from '../context/SwipeContext';
 import { ThemeToggle } from '../components/ui/ThemeToggle';
 import { HighlightsCard } from '../components/results/HighlightsCard';
+import { GoalsCard } from '../components/results/GoalsCard';
 import { ListCard } from '../components/results/ListCard';
-import { deriveHighlights, getRecommendedCuisines } from '../utils/tasteAnalysis';
+import { deriveHighlights, getRecommendedCuisines, deriveLifestyleGoals } from '../utils/tasteAnalysis';
 import foodsData from '../assets/foods.json';
 import styles from './ResultsPage.module.css';
 
@@ -17,6 +18,7 @@ export const ResultsPage = () => {
 
   const allLiked = [...liked, ...superlikes];
   const highlights = deriveHighlights(allLiked);
+  const goals = deriveLifestyleGoals(allLiked);
   const cuisines = getRecommendedCuisines(allLiked, foodsData.cuisines);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -42,6 +44,8 @@ export const ResultsPage = () => {
 
         <div className={styles.sectionLabel}>Key Highlights:</div>
         <HighlightsCard highlights={highlights} />
+
+        <GoalsCard goals={goals} />
 
         <div className={styles.sectionLabel}>Your Profile Breakdown:</div>
         <div 

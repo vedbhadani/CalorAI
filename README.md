@@ -19,7 +19,7 @@
 
 Three page components (`IntroPage`, `SwipePage`, `ResultsPage`) rendered via **React Router** with animated transitions powered by Framer Motion's `AnimatePresence`.
 
-Reusable UI primitives (`FoodCard`, `ProgressBar`, `ActionButtons`, `ThemeToggle`, `ListCard`, `HighlightsCard`) are decoupled from state and receive only props. All leaf components are wrapped in `React.memo` to prevent unnecessary re-renders.
+Reusable UI primitives (`FoodCard`, `ProgressBar`, `ActionButtons`, `ThemeToggle`, `ListCard`, `HighlightsCard`, `GoalsCard`) are decoupled from state and receive only props. All leaf components are wrapped in `React.memo` to prevent unnecessary re-renders.
 
 An `ErrorBoundary` class component wraps the entire app to gracefully handle render errors with a styled fallback UI.
 
@@ -29,7 +29,7 @@ src/
 │   ├── ui/          → ThemeToggle, ProgressBar, AnimatedBackground, ErrorBoundary
 │   ├── cards/       → FoodCard, CardStack
 │   ├── swipe/       → ActionButtons
-│   └── results/     → HighlightsCard, ListCard
+│   └── results/     → HighlightsCard, ListCard, GoalsCard
 ├── context/         → ThemeContext, SwipeContext (Context API wrapper)
 ├── store/           → useSwipeStore (Zustand with persist middleware)
 ├── hooks/           → useSwipe, useTheme, useLocalStorage
@@ -82,7 +82,7 @@ A class-based `ErrorBoundary` component wraps the entire application tree. If an
 
 ## Performance Optimizations
 
-- `React.memo` on `ActionButtons`, `ProgressBar`, `HighlightsCard`, `ListCard`
+- `React.memo` on `ActionButtons`, `ProgressBar`, `HighlightsCard`, `ListCard`, `GoalsCard`
 - `useMemo` on all derived arrays in `SwipeContext` (`liked`, `disliked`, `superlikes`, `unsure`)
 - `useCallback` on all action handlers (`recordSwipe`, `undoSwipe`, `reset`, `triggerSwipe`, `handleDragEnd`)
 - Zustand selectors for fine-grained subscriptions — components only re-render when their specific slice changes
@@ -96,7 +96,7 @@ npm run test        # single run
 npm run test:watch  # watch mode
 ```
 
-Tests cover `deriveHighlights` and `getRecommendedCuisines` with edge cases:
+Tests cover `deriveHighlights`, `getRecommendedCuisines`, and `deriveLifestyleGoals` with edge cases:
 - Empty input
 - Threshold-based highlight triggers (3+ proteins → Carnivore, etc.)
 - Tag-to-cuisine mapping

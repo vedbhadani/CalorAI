@@ -59,3 +59,24 @@ export const getRecommendedCuisines = (liked: Food[], cuisines: Cuisine[]) => {
     .map(s => s.cuisine)
     .slice(0, 4);
 };
+
+export const deriveLifestyleGoals = (liked: Food[]): string[] => {
+  const allTags = new Set(liked.flatMap(f => f.tags));
+  const goals: string[] = [];
+
+  if (allTags.has('healthy'))    goals.push('Health-Conscious');
+  if (allTags.has('protein'))    goals.push('High Protein');
+  if (allTags.has('breakfast'))  goals.push('Breakfast Lover');
+  if (allTags.has('vegan'))      goals.push('Plant-Based');
+  if (allTags.has('fish'))       goals.push('Pescatarian');
+  if (allTags.has('red-meat'))   goals.push('Meat Lover');
+  if (allTags.has('indulgent'))  goals.push('Comfort Eater');
+  if (allTags.has('comfort'))    goals.push('Comfort Food Fan');
+
+  // Always show at least 2 items — fallback if no tags match
+  if (goals.length === 0) {
+    goals.push('Balanced Diet', 'Open to Everything');
+  }
+
+  return goals.slice(0, 4); // Cap at 4 items
+};

@@ -32,15 +32,15 @@
   left: 0;
 }
 
-/* Large Green Blob */
+/* Large Green Blob — move to bottom-right */
 .large {
   width: 30vw;
   height: 30vw;
   min-width: 300px;
   min-height: 300px;
   background-color: #3e702d;
-  top: 0;
-  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 /* On light mode, we might want multiply instead of screen for blending, 
