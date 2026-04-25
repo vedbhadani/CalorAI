@@ -1,7 +1,7 @@
 # CalorAI Taste Profile
 
-**Live Demo:** [calorai-taste-profile.vercel.app](https://calorai-taste-profile.vercel.app)
-**Video Walkthrough:** [Watch on Loom](PASTE_LOOM_URL_HERE)
+**Live Demo:** [calor-ai-one.vercel.app](https://calor-ai-one.vercel.app/)
+**Video Walkthrough:** [Watch on Google Drive](https://drive.google.com/file/d/1cjxMuWdSuwLwFu92cZkO8bQwUCucKgz8/view?usp=sharing)
 
 ---
 
