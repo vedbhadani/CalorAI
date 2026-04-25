@@ -84,6 +84,17 @@ describe('getRecommendedCuisines', () => {
     expect(getRecommendedCuisines([], CUISINES)).toEqual([]);
   });
 
+  it('returns fallback cuisines when liked foods have no matching cuisine tags', () => {
+    const foods = [
+      makeFood({ id: 21, name: 'Greek Yogurt', tags: ['dairy', 'breakfast'] }),
+      makeFood({ id: 22, name: 'Nuts',         tags: ['snack', 'fat'] }),
+    ];
+    const result = getRecommendedCuisines(foods, CUISINES);
+    // Fallback returns up to 3 cuisines when nothing scores
+    expect(result.length).toBeGreaterThan(0);
+    expect(result.length).toBeLessThanOrEqual(3);
+  });
+
   it('recommends Italian when liked foods have italian tag', () => {
     const foods = [makeFood({ id: 25, name: 'Pizza', tags: ['italian'] })];
     const result = getRecommendedCuisines(foods, CUISINES);

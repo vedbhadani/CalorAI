@@ -24,20 +24,38 @@ export const deriveHighlights = (liked: Food[]) => {
 };
 
 export const getRecommendedCuisines = (liked: Food[], cuisines: Cuisine[]) => {
+  // Explicit early return for empty input — no preferences, no recommendations
+  if (liked.length === 0) return [];
+
   const likedTags = new Set(liked.flatMap(f => f.tags));
-  
+
   const cuisineTags: Record<string, string[]> = {
-    'Italian': ['italian', 'pasta', 'pizza'],
-    'Mexican': ['mexican', 'tacos'],
-    'Japanese': ['japanese', 'sushi', 'ramen', 'fish'],
+    'Italian':       ['italian', 'pasta', 'pizza'],
+    'Mexican':       ['mexican', 'tacos'],
+    'Japanese':      ['japanese', 'sushi', 'ramen', 'fish'],
     'Mediterranean': ['healthy', 'salad', 'fish', 'vegetable'],
-    'American': ['comfort', 'burger', 'steak', 'red-meat', 'protein']
+    'American':      ['comfort', 'burger', 'steak', 'red-meat', 'protein'],
   };
 
-  return cuisines
-    .filter(c => {
-      const matchTags = cuisineTags[c.name] || [c.name.toLowerCase()];
-      return matchTags.some(tag => likedTags.has(tag));
-    })
+  // Score each cuisine by how many of its tags appear in liked foods
+  const scored = cuisines.map(c => {
+    const matchTags = cuisineTags[c.name] ?? [c.name.toLowerCase()];
+    const score = matchTags.filter(tag => likedTags.has(tag)).length;
+    return { cuisine: c, score };
+  });
+
+  // Sort by score descending
+  scored.sort((a, b) => b.score - a.score);
+
+  // If no cuisine matched at all, return top 3 as a graceful fallback
+  const hasAnyMatch = scored.some(s => s.score > 0);
+  if (!hasAnyMatch) {
+    return cuisines.slice(0, 3);
+  }
+
+  // Otherwise return only matched cuisines, capped at 4
+  return scored
+    .filter(s => s.score > 0)
+    .map(s => s.cuisine)
     .slice(0, 4);
 };
